@@ -3,6 +3,8 @@ import { useState } from 'react';
 
 function App() {
 
+  const Backend_URL = import.meta.env.VITE_API_URL;
+
   const [status, setStatus] = useState("");
   const [id, setId] = useState("");
   const [repoUrl, setRepoUrl] = useState("");
@@ -17,7 +19,7 @@ function App() {
   async function handleDeploy() {
     setStatus("uploading")
     
-    let response = await fetch(`http://localhost:8080/deploy`, {
+    let response = await fetch(`${Backend_URL}/deploy`, {
       method: 'POST',
       headers: { "content-type": "application/json" },
       body: JSON.stringify({ repoUrl })
@@ -40,7 +42,7 @@ function App() {
     if (!deployId) return;
 
     while (true) {
-      const response = await fetch(`http://localhost:8080/status?id=${deployId}`);
+      const response = await fetch(`${Backend_URL}?id=${deployId}`);
       let data;
       try {
         data = await response.json();
