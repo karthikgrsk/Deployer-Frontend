@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+	:root {
+		--brand: #0ea5e9;
+	}
+
+	html, body, #root {
+		height: 100%;
+	}
+
+	body {
+		@apply antialiased text-white font-sans bg-black;
+	}
+}
+
+/* small helpers */
+.card-shadow {
+	@apply shadow-lg;
+}
