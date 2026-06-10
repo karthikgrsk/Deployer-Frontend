@@ -5,6 +5,8 @@ function App() {
 
   const Backend_URL = import.meta.env.VITE_API_URL;
 
+  console.log("url:"+Backend_URL);
+
   const [status, setStatus] = useState("");
   const [id, setId] = useState("");
   const [repoUrl, setRepoUrl] = useState("");
@@ -18,12 +20,17 @@ function App() {
 
   async function handleDeploy() {
     setStatus("uploading")
-    
+
     let response = await fetch(`${Backend_URL}/deploy`, {
       method: 'POST',
       headers: { "content-type": "application/json" },
       body: JSON.stringify({ repoUrl })
     });
+
+    if (!response.ok) {
+      const text = await response.text();
+      throw new Error(text || "Deployment failed");
+    }
 
     let data = await response.json();
 
@@ -42,7 +49,7 @@ function App() {
     if (!deployId) return;
 
     while (true) {
-      const response = await fetch(`${Backend_URL}?id=${deployId}`);
+      const response = await fetch(`${Backend_URL}/status?id=${deployId}`);
       let data;
       try {
         data = await response.json();
@@ -76,7 +83,7 @@ function App() {
     }
   }
 
-  
+
 
   return (
     <div className="min-h-screen bg-black flex items-center justify-center p-6">
