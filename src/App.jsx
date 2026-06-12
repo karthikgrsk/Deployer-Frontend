@@ -5,7 +5,7 @@ function App() {
 
   const Backend_URL = import.meta.env.VITE_API_URL;
 
-  console.log("url:"+Backend_URL);
+  //console.log("url:"+Backend_URL);
 
   const [status, setStatus] = useState("");
   const [id, setId] = useState("");
@@ -16,9 +16,11 @@ function App() {
     event.preventDefault();
     const deployId = await handleDeploy()
     pollStatus(deployId)
+    
   }
 
   async function handleDeploy() {
+    alert("This platform currently supports deployment for React and static HTML/CSS/JavaScript projects only. Deployment initialization may takesome time depending on server availability.");
     setStatus("uploading")
 
     let response = await fetch(`${Backend_URL}/deploy`, {
@@ -39,7 +41,7 @@ function App() {
     setId(data.id);
     setStatus(data.status);
 
-    console.log(`ID: ${data.id} status: ${data.status}`);
+    //console.log(`ID: ${data.id} status: ${data.status}`);
 
     return data.id;
 
