@@ -114,9 +114,9 @@ function App() {
 
         {deployed && (
           <div className="mt-6 border-t border-slate-800 pt-4 flex items-center justify-between gap-4">
-            <div className="text-sm text-slate-300">Preview:http://{id}.localhost:8080/index.html</div>
+            <div className="text-sm text-slate-300">{`Preview: ${Backend_URL}/${id}/index.html`}</div>
             <a
-              href={`http://${id}.localhost:8080/index.html`}
+              href={`${Backend_URL}/${id}/index.html`}
               target="_blank"
               rel="noreferrer"
               className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-slate-800 border border-slate-700 shadow text-sky-300 hover:bg-slate-700"
